@@ -4,7 +4,7 @@
 
 # Function for giving user information on the cli
 
-VERSION="1.0"
+VERSION="1.0.1"
 
 function info {
 
@@ -260,6 +260,7 @@ int main() {
 
 # Makefile echos
 
+echo "" > Makefile
 echo "# This is the default makefile for coding challenges as set by mkcc ${VERSION}" >> Makefile
 echo "" >> Makefile
 echo "all: main test" >> Makefile
@@ -272,6 +273,7 @@ echo $'\tgcc -o test test.c -Wall -pedantic' >> Makefile
 
 # main.c echos
 
+echo "" > main.c
 echo "/*" >> main.c
 echo "" >> main.c
 echo "Coding Challenges | John Crickett" >> main.c
@@ -290,6 +292,7 @@ echo "#include <main.h>" >> main.c
 
 # main.h echos
 
+echo "" > main.h
 echo "/*" >> main.h
 echo "" >> main.h
 echo "Coding Challenges | John Crickett" >> main.h
@@ -303,6 +306,7 @@ echo "*/" >> main.h
 
 # functions.c echos
 
+echo "" > functions.c
 echo "/*" >> functions.c
 echo "" >> functions.c
 echo "Coding Challenges | John Crickett" >> functions.c
@@ -318,6 +322,7 @@ echo "#include <main.h>" >> functions.c
 
 # test.c echos
 
+echo "" > test.c
 echo "/*" >> test.c
 echo "" >> test.c
 echo "Coding Challenges | John Crickett" >> test.c
