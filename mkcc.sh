@@ -175,7 +175,12 @@ read -p "Please enter your name: " devname
 read -p "Please enter the date of project creation (this can be changed later): " projdate
 read -p "Please enter the full name of this coding challenge (e.g. Build Your Own CLI): " challenge
 read -p "Please enter the full URL of the coding challenge (or leave blank to include later): " pageurl
+read -p "Will you be running tests in c or as a bash script? [c/b]: " testingbash
 
+if [[ $testingbash != "c" ]] && [[ $testingbash != "b" ]]; then
+    echo "Cancelling project creation..."
+    exit
+fi
 
 echo ""
 read -p "Create project by '${devname}' on '${projdate}'? [y/n]: " confirm
@@ -198,20 +203,20 @@ fi
 # Write to files
 
 defaultmake="
-
 # This is the default makefile for coding challenges as set by mkcc ${VERSION}
 
 all: main test
 
 main: main.c functions.c
-      gcc -o main functions.c main.c -I. -Wall -pedantic
+      gcc -o main functions.c main.c -I. -Wall -pedantic"
 
+
+additionalmakebash="
 test: test.c
       gcc -o test test.c -Wall -pedantic
 "
 
 maincomment="
-
 /*
 
 Coding Challenges | John Crickett
@@ -231,7 +236,6 @@ Development Notes:
 "
 
 headercomment="
-
 /*
 
 Coding Challenges | John Crickett
@@ -243,8 +247,8 @@ This is the header file for this coding challenge
 
 */"
 
-functionscomment="
 
+functioncomment="
 /*
 
 Coding Challenges | John Crickett
@@ -260,8 +264,25 @@ This is the functions file for this coding challenge
 
 "
 
-testcomment="
 
+testcommentbash="
+#!/usr/bin/bash
+
+: '
+
+Coding Challenges | John Crickett
+
+Name: $devname
+Date: $projdate
+
+This is the file to run all tests required of this coding challenge
+
+ '
+
+"
+
+
+testcommentc="
 /*
 
 Coding Challenges | John Crickett
@@ -283,7 +304,13 @@ echo "$defaultmake" > ${projectname}/Makefile
 echo "$maincomment" > ${projectname}/main.c
 echo "$headercomment" > ${projectname}/main.h
 echo "$functioncomment" > ${projectname}/functions.c
-echo "$testcomment" > ${projectname}/test.c
+
+if [[ $testingbash == "b" ]]; then
+    echo "$testcommentbash" > ${projectname}/test.sh
+else
+    echo "$testcommentc" > ${projectname}/test.c
+    echo "$additionalmakebash" >> ${projectname}/Makefile
+fi
 
 
 echo ""
