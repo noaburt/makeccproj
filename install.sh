@@ -1,20 +1,33 @@
 
 #!/usr/bin/bash
 
-# A script to set up mkcc, clones repo to dir and creates alias
+# A script to set up mkcc; copy script to local and create alias
 
-gitlink="https://github.com/noaburt/makeccproj/mkcc.sh"
 scriptpath="/usr/bin"
 
-echo "Setting up mkcc [ version 1.0.1 ]"
+echo "Setting up mkcc [ version 1.0.2 ]"
 chmod +x ./mkcc.sh
 
-echo "Hard linking mkcc script to directory '${scriptpath}'"
-ln ./mkcc.sh ${scriptpath}/mkcc.sh
+if [[ $? -ne 0 ]]; then
+    echo "Setup failed, exiting..." >&2
+    return
+fi
 
+echo "Installing mkcc script to directory '${scriptpath}'"
+sudo cp mkcc.sh ${scriptpath}/mkcc.sh
+
+if [[ $? -ne 0 ]]; then
+    echo "Setup failed, exiting..." >&2
+    return
+fi
 
 echo "Aliasing '${scriptpath}/mkcc.sh' to mkcc"
 alias mkcc="${scriptpath}/mkcc.sh"
+
+if [[ $? -ne 0 ]]; then
+    echo "Setup failed, exiting..." >&2
+    return
+fi
 
 echo ""
 echo "Setup complete, run mkcc to see more info"
