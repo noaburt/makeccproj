@@ -19,6 +19,8 @@ $ cd makeccproj
 $ source ./install.sh
 ```
 
+The cloned repo can then be deleted
+
 ## Usage
 
 This info is detailed by running:
