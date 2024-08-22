@@ -21,7 +21,7 @@ $ source ./install.sh
 
 ## Usage
 
-This info is detailed by running
+This info is detailed by running:
 ```
 $ mkcc
 ```
