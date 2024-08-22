@@ -5,13 +5,13 @@
 
 ### Git
 
-Firstly, install git and clone this repo to the local machine
+Firstly install git, then clone this repo to the local machine
 ```
-$ sudo GET GIT
+$ sudo [ apt install / apt-get / pacman -S / dnf install / ... ] git
 $ git clone git@github.com:noaburt/makeccproj.git
 ```
 
-### Install.sh
+### Install script
 
 Then source the install script to finish the setup
 ```
