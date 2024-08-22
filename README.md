@@ -13,7 +13,8 @@ $ git clone git@github.com:noaburt/makeccproj.git
 
 ### Install.sh
 
-Then source the install script to finish the setup, you will need to enter root password to install to correct dir
+Then source the install script to finish the setup
+(you will need to enter root password to install to correct path)
 ```
 $ cd makeccproj
 $ source ./install.sh
