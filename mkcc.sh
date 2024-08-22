@@ -142,11 +142,25 @@ else
 fi
 
 echo ""
-read -p "Create project '$projectname'$withorwithout in current directory '$(pwd)'? [y/n]: " confirm
+
+# If project name already exists, ask to overwrite
+
+if [ -d "$(pwd)/$projectname" ]; then
+    read -p "Project '$projectname' already exists in current directory, overwrite project? [y/n]: " confirm
+else  
+    read -p "Create project '$projectname'$withorwithout in current directory '$(pwd)'? [y/n]: " confirm
+fi
 
 if [[ $confirm == "n" ]] || [[ $confirm != "y" ]]; then
     echo "Cancelling project creation..."
     exit
+fi
+
+# Remove existing project of same name
+
+if [ -d "$(pwd)/$projectname" ]; then
+    echo "Deleting project '$projectname'"
+    rm -r $projectname
 fi
 
 
