@@ -243,7 +243,7 @@ This is the header file for this coding challenge
 
 */"
 
-functionscomment="
+functioncomment="
 
 /*
 
