@@ -4,10 +4,12 @@
 
 # Function for giving user information on the cli
 
+VERSION="1.0"
+
 function info {
 
-    INFO='
-Welcome to mkcc [ version 0.0.1 ]
+    INFO="
+Welcome to mkcc [ version ${VERSION} ]
 
 This is a CLI tool created by Noa Burt, used for automating the creation of new projects to attempt and complete Coding Challenges by John Crickett (in c)
 Each project is created according to the following structure:
@@ -23,7 +25,7 @@ Each project is created according to the following structure:
 	ChallengeFiles/ (if required, added using -f flag)
 
 
->mkcc [ChallengeTitle]
+> mkcc [ChallengeTitle]
 
 This begins project creation (use -f flag if extra challenge files are required e.g. as input for testing)
 Then input details of the challenge for main.c header comment, such as Name, Date, Challenge Name, and Challenge URL
@@ -45,7 +47,7 @@ x
 x
 x
 
-*/'
+*/"
     
     echo "$INFO"
 
@@ -179,7 +181,7 @@ fi
 # Write to files
 
 defaultmake="
-# This is the default makefile for coding challenges as set by mkcc
+# This is the default makefile for coding challenges as set by mkcc ${VERSION}
 
 all: main test
 
@@ -258,7 +260,7 @@ int main() {
 
 # Makefile echos
 
-echo "# This is the default makefile for coding challenges as set by mkcc" >> Makefile
+echo "# This is the default makefile for coding challenges as set by mkcc ${VERSION}" >> Makefile
 echo "" >> Makefile
 echo "all: main test" >> Makefile
 echo "" >> Makefile
