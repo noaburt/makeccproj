@@ -182,19 +182,17 @@ fi
 
 # Create all files
 
-#exit # Remove when testing
-
 mkdir $projectname
-cd $projectname
 
 if [[ $fileflag == 1 ]]; then
-    mkdir ChallengeFiles
+    mkdir ${projectname}/ChallengeFiles
 fi
 
 
 # Write to files
 
 defaultmake="
+
 # This is the default makefile for coding challenges as set by mkcc ${VERSION}
 
 all: main test
@@ -207,6 +205,7 @@ test: test.c
 "
 
 maincomment="
+
 /*
 
 Coding Challenges | John Crickett
@@ -226,6 +225,7 @@ Development Notes:
 "
 
 headercomment="
+
 /*
 
 Coding Challenges | John Crickett
@@ -238,6 +238,7 @@ This is the header file for this coding challenge
 */"
 
 functionscomment="
+
 /*
 
 Coding Challenges | John Crickett
@@ -254,6 +255,7 @@ This is the functions file for this coding challenge
 "
 
 testcomment="
+
 /*
 
 Coding Challenges | John Crickett
@@ -267,97 +269,15 @@ This is the file to run all tests required of this coding challenge
 
 int main() {
     return 0;
-}"
+}
 
+"
 
-# THERE MUST BE A BETTER WAY
-
-# Makefile echos
-
-echo "" > Makefile
-echo "# This is the default makefile for coding challenges as set by mkcc ${VERSION}" >> Makefile
-echo "" >> Makefile
-echo "all: main test" >> Makefile
-echo "" >> Makefile
-echo "main: main.c functions.c" >> Makefile
-echo $'\tgcc -o main functions.c main.c -I. -Wall -pedantic' >> Makefile
-echo "" >> Makefile
-echo "test: test.c" >> Makefile
-echo $'\tgcc -o test test.c -Wall -pedantic' >> Makefile
-
-# main.c echos
-
-echo "" > main.c
-echo "/*" >> main.c
-echo "" >> main.c
-echo "Coding Challenges | John Crickett" >> main.c
-echo "" >> main.c
-echo "Name: $devname" >> main.c
-echo "Date: $projdate" >> main.c
-echo "" >> main.c
-echo "This is my solution for the $challenge coding challenge" >> main.c
-echo "found at - $pageurl" >> main.c
-echo "" >> main.c
-echo "Development Notes:" >> main.c
-echo "" >> main.c
-echo "*/" >> main.c
-echo "" >> main.c
-echo "#include <main.h>" >> main.c
-
-# main.h echos
-
-echo "" > main.h
-echo "/*" >> main.h
-echo "" >> main.h
-echo "Coding Challenges | John Crickett" >> main.h
-echo "" >> main.h
-echo "Name: $devname" >> main.h
-echo "Date: $projdate" >> main.h
-echo "" >> main.h
-echo "This is the header file for this coding challenge" >> main.h
-echo "" >> main.h
-echo "*/" >> main.h
-
-# functions.c echos
-
-echo "" > functions.c
-echo "/*" >> functions.c
-echo "" >> functions.c
-echo "Coding Challenges | John Crickett" >> functions.c
-echo "" >> functions.c
-echo "Name: $devname" >> functions.c
-echo "Date: $projdate" >> functions.c
-echo "" >> functions.c
-echo "This is the functions file coding challenge" >> functions.c
-echo "" >> functions.c
-echo "*/" >> functions.c
-echo "" >> functions.c
-echo "#include <main.h>" >> functions.c
-
-# test.c echos
-
-echo "" > test.c
-echo "/*" >> test.c
-echo "" >> test.c
-echo "Coding Challenges | John Crickett" >> test.c
-echo "" >> test.c
-echo "Name: $devname" >> test.c
-echo "Date: $projdate" >> test.c
-echo "" >> test.c
-echo "This is the file to run all tests required of this coding challenge" >> test.c
-echo "" >> test.c
-echo "*/" >> test.c
-echo "" >> test.c
-echo "int main() {" >> test.c
-echo $'\treturn 0;' >> test.c
-echo "}" >> test.c
-
-# SADLY DOESN'T WORK, NO NEW LINES WHEN ECHOED TO FILE
-#echo $defaultmake > Makefile
-#echo $maincomment > main.c
-#echo $headercomment > main.h
-#echo $functioncomment > functions.c
-#echo $testcomment > test.c
+echo "$defaultmake" > ${projectname}/Makefile
+echo "$maincomment" > ${projectname}/main.c
+echo "$headercomment" > ${projectname}/main.h
+echo "$functioncomment" > ${projectname}/functions.c
+echo "$testcomment" > ${projectname}/test.c
 
 
 echo ""
