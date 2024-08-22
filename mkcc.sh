@@ -67,7 +67,8 @@ fi
 if [ ! -z $3 ]; then
 
     # There are three parameters
-    echo "Too many parameter error"
+    echo "mkcc: Too many operand" >&2
+    echo "Try 'mkcc' for more information" >&2
     exit
 fi
 
@@ -81,7 +82,8 @@ if [ -z $2 ]; then
     if [[ $1 == -* ]]; then
 
 	# Only a flag has been passed
-	echo "Flag only error"
+	echo "mkcc: Missing operand" >&2
+	echo "Try 'mkcc' for more information" >&2
 	exit
 	
     fi
@@ -98,12 +100,13 @@ else
 	# First parameter is flag
 
 	if [[ $2 == -* ]]; then
-	    echo "Flag only error"
+	    echo "mkcc: Missing operand" >&2
+	    echo "Try 'mkcc' for more information" >&2
 	    exit
 	fi
 	
 	if [[ $1 != '-f' ]]; then
-	    echo "Flag $1 not recognised"
+	    echo "mkcc: Unknown argument $1" >&2
 	    exit
 	fi
 
@@ -116,7 +119,7 @@ else
 	# Second parameter is flag
 
 	if [[ $2 != '-f' ]]; then
-	    echo "Flag $2 not recognised"
+	    echo "mkcc: Unknown argument $2" >&2
 	    exit
 	fi
 
@@ -125,7 +128,10 @@ else
 
     else
 
-	echo "No flag error"
+	# Neither parameter is a flag
+	
+	echo "mkcc: Too many operand" >&2
+	echo "Try 'mkcc' for more information" >&2
 	exit
 
     fi
