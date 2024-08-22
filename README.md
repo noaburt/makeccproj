@@ -29,7 +29,8 @@ $ mkcc
 Run the CLI and answer the questions to create a Coding Challenges project
 ```
 $ mkcc [challenge name]
-Create project '[challenge name]'? [y/n]:
+
+Create project '[challenge name]'? [y/n]: y
 ...
 ```
 
