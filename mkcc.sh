@@ -289,5 +289,8 @@ echo "$headercomment" > ${projectname}/main.h
 echo "$functioncomment" > ${projectname}/functions.c
 echo "$testcomment" > ${projectname}/test.sh
 
+# make test script executable for non-bash shells
+chmod +x ${projectname}/test.sh
+
 echo ""
 echo "Project created successfully! Don't forget to add and commit to your git repo."
