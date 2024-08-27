@@ -19,6 +19,7 @@ Then source the install script to finish the setup
 $ cd makeccproj
 $ source ./install.sh
 ```
+The cloned repo can then be removed from machine
 
 ## Usage
 
@@ -42,3 +43,4 @@ $ git clone git@github.com:noaburt/makeccproj.git
 $ cd makeccproj
 $ source ./install.sh
 ```
+The cloned repo can then be removed from machine

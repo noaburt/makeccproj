@@ -4,7 +4,7 @@
 
 # Function for giving user information on the cli
 
-VERSION="1.0.2"
+VERSION="1.0.3"
 
 function info {
 
@@ -17,10 +17,10 @@ Each project is created according to the following structure:
      ChallengeTitle/
 
 	Makefile
-	runtests.c
 	main.c
 	functions.c
 	main.h
+	test.sh
 
 	ChallengeFiles/ (if required, added using -f flag)
 
@@ -175,12 +175,6 @@ read -p "Please enter your name: " devname
 read -p "Please enter the date of project creation (this can be changed later): " projdate
 read -p "Please enter the full name of this coding challenge (e.g. Build Your Own CLI): " challenge
 read -p "Please enter the full URL of the coding challenge (or leave blank to include later): " pageurl
-read -p "Will you be running tests in c or as a bash script? [c/b]: " testingbash
-
-if [[ $testingbash != "c" ]] && [[ $testingbash != "b" ]]; then
-    echo "Cancelling project creation..."
-    exit
-fi
 
 echo ""
 read -p "Create project by '${devname}' on '${projdate}'? [y/n]: " confirm
@@ -205,16 +199,12 @@ fi
 defaultmake="
 # This is the default makefile for coding challenges as set by mkcc ${VERSION}
 
-all: main test
+all: main
 
 main: main.c functions.c
-      gcc -o main functions.c main.c -I. -Wall -pedantic"
-
-
-additionalmakebash="
-test: test.c
-      gcc -o test test.c -Wall -pedantic
+	gcc -o main functions.c main.c -I. -Wall -pedantic
 "
+
 
 maincomment="
 /*
@@ -265,7 +255,7 @@ This is the functions file for this coding challenge
 "
 
 
-testcommentbash="
+testcomment="
 #!/usr/bin/bash
 
 : '
@@ -279,39 +269,25 @@ This is the file to run all tests required of this coding challenge
 
  '
 
-"
+function runtest {
 
+    # Simple function to format tests; arg 1 is test arguments, arg 2 is expected result, arg 3 is show tests [0 - no, 1 - yes]
 
-testcommentc="
-/*
-
-Coding Challenges | John Crickett
-
-Name: $devname
-Date: $projdate
-
-This is the file to run all tests required of this coding challenge
-
-*/
-
-int main() {
-    return 0;
+    printf \"\n> ./main %-50s | expecting: %40s\" \"$1\" \"$2\"
+    printf \"$(./main $1)\n\"
 }
 
+make
+echo \"Beginning testing...\"
+
 "
+
 
 echo "$defaultmake" > ${projectname}/Makefile
 echo "$maincomment" > ${projectname}/main.c
 echo "$headercomment" > ${projectname}/main.h
 echo "$functioncomment" > ${projectname}/functions.c
-
-if [[ $testingbash == "b" ]]; then
-    echo "$testcommentbash" > ${projectname}/test.sh
-else
-    echo "$testcommentc" > ${projectname}/test.c
-    echo "$additionalmakebash" >> ${projectname}/Makefile
-fi
-
+echo "$testcomment" > ${projectname}/test.sh
 
 echo ""
 echo "Project created successfully! Don't forget to add and commit to your git repo."
