@@ -4,7 +4,7 @@
 
 # Function for giving user information on the cli
 
-VERSION="1.0.3"
+VERSION="1.0.4"
 
 function info {
 
@@ -36,7 +36,7 @@ This results in the main.c file looking like this upon project creation:
 
 Coding Challenges | John Crickett
 
-Name: xxx xxx
+Author: xxx xxx
 Date: xx/xx/xxx
 
 This is my solution for the xxx coding challenge
@@ -211,7 +211,7 @@ maincomment="
 
 Coding Challenges | John Crickett
 
-Name: $devname
+Author: $devname
 Date: $projdate
 
 This is my solution for the $challenge coding challenge
@@ -223,6 +223,12 @@ Development Notes:
 
 #include <main.h>
 
+int main(int argc, char** argv) {
+
+    /* good luck */
+
+    return 0;
+}
 "
 
 headercomment="
@@ -230,10 +236,18 @@ headercomment="
 
 Coding Challenges | John Crickett
 
-Name: $devname
+Author: $devname
 Date: $projdate
 
 This is the header file for this coding challenge
+
+/* includes */
+
+
+
+/* functions */
+
+
 
 */"
 
@@ -243,7 +257,7 @@ functioncomment="
 
 Coding Challenges | John Crickett
 
-Name: $devname
+Author: $devname
 Date: $projdate
 
 This is the functions file for this coding challenge
@@ -262,7 +276,7 @@ testcomment="
 
 Coding Challenges | John Crickett
 
-Name: $devname
+Author: $devname
 Date: $projdate
 
 This is the file to run all tests required of this coding challenge
@@ -278,6 +292,11 @@ function runtest {
 }
 
 make
+
+if [ $? -ne 0 ]; then
+    exit 1
+fi
+
 echo \"Beginning testing...\"
 
 "
@@ -294,3 +313,4 @@ chmod +x ${projectname}/test.sh
 
 echo ""
 echo "Project created successfully! Don't forget to add and commit to your git repo."
+
