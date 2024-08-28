@@ -5,13 +5,13 @@
 
 ### Git
 
-Firstly, install git and clone this repo to the local machine
+Firstly install git, then clone this repo to the local machine
 ```
-$ sudo GET GIT
+$ sudo [ apt install / apt-get / pacman -S / dnf install / ... ] git
 $ git clone git@github.com:noaburt/makeccproj.git
 ```
 
-### Install.sh
+### Install script
 
 Then make the script executable, and source the install script to finish the setup
 (you will need to enter root password to install to correct path)
@@ -22,9 +22,11 @@ $ source ./install.sh
 ```
 The cloned repo can then be removed from machine
 
+The cloned repo can then be deleted
+
 ## Usage
 
-This info is detailed by running
+This info is detailed by running:
 ```
 $ mkcc
 ```
@@ -32,7 +34,8 @@ $ mkcc
 Run the CLI and answer the questions to create a Coding Challenges project
 ```
 $ mkcc [challenge name]
-Create project '[challenge name]'? [y/n]:
+
+Create project '[challenge name]'? [y/n]: y
 ...
 ```
 
