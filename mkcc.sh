@@ -4,7 +4,7 @@
 
 # Function for giving user information on the cli
 
-VERSION="1.0.4"
+VERSION="1.0.5"
 
 function info {
 
@@ -176,8 +176,15 @@ read -p "Please enter the date of project creation (this can be changed later): 
 read -p "Please enter the full name of this coding challenge (e.g. Build Your Own CLI): " challenge
 read -p "Please enter the full URL of the coding challenge (or leave blank to include later): " pageurl
 
+read -p "Please enter the shortened name of the challenge (used when calling from command line): " shortname
+
+if [ -z $shortname ]; then
+    echo "Shortened name cannot be blank, cancelling project creation..."
+    exit
+fi
+
 echo ""
-read -p "Create project by '${devname}' on '${projdate}'? [y/n]: " confirm
+read -p "Create project '${challenge}' (${shortname}) by '${devname}' on '${projdate}'? [y/n]: " confirm
 
 if [[ $confirm == "n" ]] || [[ $confirm != "y" ]]; then
     echo "Cancelling project creation..."
@@ -199,10 +206,10 @@ fi
 defaultmake="
 # This is the default makefile for coding challenges as set by mkcc ${VERSION}
 
-all: main
+all: $shortname
 
-main: main.c functions.c
-	gcc -o main functions.c main.c -I. -Wall -pedantic
+${shortname}: main.c functions.c
+	gcc -o $shortname functions.c main.c -I. -Wall -pedantic
 "
 
 
@@ -241,6 +248,8 @@ Date: $projdate
 
 This is the header file for this coding challenge
 
+*/
+
 /* includes */
 
 
@@ -248,8 +257,7 @@ This is the header file for this coding challenge
 /* functions */
 
 
-
-*/"
+"
 
 
 functioncomment="
@@ -287,13 +295,13 @@ function runtest {
 
     # Simple function to format tests; arg 1 is test arguments, arg 2 is expected result, arg 3 is show tests [0 - no, 1 - yes]
 
-    printf \"\n> ./main %-50s | expecting: %40s\" \"$1\" \"$2\"
-    printf \"$(./main $1)\n\"
+    printf \"\n> ./${shortname} %-50s | expecting: %40s\" \"$1\" \"$2\"
+    printf \"\$(./${shortname} \$1)\n\"
 }
 
 make
 
-if [ $? -ne 0 ]; then
+if [ \$? -ne 0 ]; then
     exit 1
 fi
 
