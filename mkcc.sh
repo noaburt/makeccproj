@@ -174,7 +174,6 @@ echo ""
 read -p "Please enter your name: " devname
 read -p "Please enter the date of project creation (this can be changed later): " projdate
 read -p "Please enter the full name of this coding challenge (e.g. Build Your Own CLI): " challenge
-read -p "Please enter the full URL of the coding challenge (or leave blank to include later): " pageurl
 
 read -p "Please enter the shortened name of the challenge (used when calling from command line): " shortname
 
@@ -182,6 +181,8 @@ if [ -z $shortname ]; then
     echo "Shortened name cannot be blank, cancelling project creation..."
     exit
 fi
+
+read -p "Please enter the full URL of the coding challenge (or leave blank to include later): " pageurl
 
 echo ""
 read -p "Create project '${challenge}' (${shortname}) by '${devname}' on '${projdate}'? [y/n]: " confirm
