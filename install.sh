@@ -5,9 +5,9 @@
 
 scriptpath="/usr/bin"
 
-echo "Setting up mkcc [ version 1.0.3 ]"
+echo "Setting up mkcc [ version 1.0.5 ]"
 
-# Make executable for non-bash shells
+# Make script executable
 chmod +x ./mkcc.sh
 
 if [[ $? -ne 0 ]]; then
