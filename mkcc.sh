@@ -296,7 +296,7 @@ function runtest {
 
     # Simple function to format tests; arg 1 is test arguments, arg 2 is expected result, arg 3 is show tests [0 - no, 1 - yes]
 
-    printf \"\n> ./${shortname} %-50s | expecting: %40s\" \"$1\" \"$2\"
+    printf \"\n> ./${shortname} %-50s | expecting: %40s\" \"\$1\" \"\$2\"
     printf \"\$(./${shortname} \$1)\n\"
 }
 

@@ -28,7 +28,7 @@ The cloned repo can then be deleted
 
 This info is detailed by running:
 ```
-$ mkcc
+$ mkcc -h / --help
 ```
 
 Run the CLI and answer the questions to create a Coding Challenges project
