@@ -13,11 +13,14 @@ $ git clone git@github.com:noaburt/makeccproj.git
 
 ### Install script
 
-Then source the install script to finish the setup, you will need to enter root password to install to correct dir
+Then make the script executable, and source the install script to finish the setup
+(you will need to enter root password to install to correct path)
 ```
 $ cd makeccproj
+$ chmod +x ./install.sh
 $ source ./install.sh
 ```
+The cloned repo can then be removed from machine
 
 The cloned repo can then be deleted
 
@@ -44,3 +47,4 @@ $ git clone git@github.com:noaburt/makeccproj.git
 $ cd makeccproj
 $ source ./install.sh
 ```
+The cloned repo can then be removed from machine
