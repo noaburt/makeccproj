@@ -1,10 +1,35 @@
 
 #!/usr/bin/bash
 
+: '
 
-# Function for giving user information on the cli
+MIT License
 
-VERSION="1.0.5"
+Copyright (C) 2024 Noa Burt
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+'
+
+
+VERSION="1.1.0"
+
+# function for giving user information on the cli
 
 function info {
 
@@ -54,37 +79,81 @@ x
 }
 
 
-# If no parameter passed, show info
+# printing usage info from -h / --help flag
 
-if [ -z $1 ]; then
-    info
+function help {
+    HELP="Usage: mkcc [OPTION] [PROJECT]
+Begin process of creating the project PROJECT.
+
+  -f               create challenge files directory to store additional files (e.g. for testing input)
+  -h, --help       display this help and exit
+  -v, --version    output version information and exit
+
+Full documentation <https://www.github.com/noaburt/makeccproj>"
+
+    echo "$HELP"
     exit
-fi
+}
+
+
+# printing version info from -v, --version flag
+
+function version {
+    VINFO="mkcc $VERSION
+Copyright (C) 2024 Noa Burt
+This is a free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by Noa Burt"
+
+    echo "$VINFO"
+    exit
+}
+
+
+# function for showing an error message, followed by -h / --help prompt
+
+function issue {
+    echo "mkcc: $1" >&2
+    echo "Try 'mkcc -h / --help' for more information" >&2
+    exit
+}
+
 
 
 # Deal with too many / incorrect parameters
 
+if [ -z $1 ]; then
+    # There are no parameters
+    issue "Missing operand"
+fi
+
 if [ ! -z $3 ]; then
 
     # There are three parameters
-    echo "mkcc: Too many operand" >&2
-    echo "Try 'mkcc' for more information" >&2
-    exit
+    issue "Too many operand"
 fi
 
 fileflag=0
 projectname="NONE"
 
+
 if [ -z $2 ]; then
 
     # There is one parameter
 
+    if [[ $1 == "-h" || $1 == "--help" ]]; then
+	help
+    fi
+
+    if [[ $1 == "-v" || $1 == "--version" ]]; then
+	version
+    fi
+
     if [[ $1 == -* ]]; then
 
 	# Only a flag has been passed
-	echo "mkcc: Missing operand" >&2
-	echo "Try 'mkcc' for more information" >&2
-	exit
+	issue "Missing operand"
 	
     fi
 
@@ -95,45 +164,43 @@ else
 
     # There are two parameters
 
-    if [[ $1 == -* ]]; then
+    projectset=0
+    
+    # fileflag       0 == no files, 1 == yes files, 2 == too many flags
 
-	# First parameter is flag
+    for arg in "$@"
+    do
 
-	if [[ $2 == -* ]]; then
-	    echo "mkcc: Missing operand" >&2
-	    echo "Try 'mkcc' for more information" >&2
-	    exit
+	if [[ $arg == -* ]]; then
+	    if [[ $arg == "-h" || $arg == "--help" ]]; then
+		help
+	    fi
+
+	    if [[ $arg == "-v" || $arg == "--version" ]]; then
+		version
+	    fi
+
+	    if [[ $arg != "-f" ]]; then
+		issue "Invalid option -- '${arg}'"
+	    fi
+	    
+	    fileflag=fileflag+1
+	else
+	    projectname=$arg
+	    projectset=projectset+1
 	fi
 	
-	if [[ $1 != '-f' ]]; then
-	    echo "mkcc: Unknown argument $1" >&2
-	    exit
-	fi
+    done
 
-	filesflag=1
-	projectname=$2
-	
 
-    elif [[ $2 == -* ]]; then
+    # no flags or no project name
+    
+    if [[ $projectset == 2 ]]; then
+	issue "Too many operand (multiple project creation not supported yet)"
+    fi
 
-	# Second parameter is flag
-
-	if [[ $2 != '-f' ]]; then
-	    echo "mkcc: Unknown argument $2" >&2
-	    exit
-	fi
-
-	fileflag=1
-	projectname=$1
-
-    else
-
-	# Neither parameter is a flag
-	
-	echo "mkcc: Too many operand" >&2
-	echo "Try 'mkcc' for more information" >&2
-	exit
-
+    if [[ $fileflag == 2 ]]; then
+	issue "Missing operand"
     fi
            
 fi
