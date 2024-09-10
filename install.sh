@@ -32,4 +32,4 @@ if [[ $? -ne 0 ]]; then
 fi
 
 echo ""
-echo "Setup complete, run mkcc to see more info"
+echo "Setup complete, run 'mkcc -h / --help' to see usage and more"

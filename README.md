@@ -31,11 +31,11 @@ This info is detailed by running:
 $ mkcc -h / --help
 ```
 
-Run the CLI and answer the questions to create a Coding Challenges project
+Run the CLI and answer the prompts to create a Coding Challenges project
 ```
-$ mkcc [challenge name]
+$ mkcc [OPTIONS] [PROJECT]
 
-Create project '[challenge name]'? [y/n]: y
+Create project '[PROJECT]'? [y/n]: y
 ...
 ```
 
