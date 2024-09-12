@@ -5,7 +5,7 @@
 
 scriptpath="/usr/bin"
 
-echo "Setting up mkcc [ version 1.1.0 ]"
+echo "Setting up mkcc [ version 1.1.1 ]"
 
 # Make script executable
 chmod +x ./mkcc.sh
