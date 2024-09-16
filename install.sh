@@ -26,6 +26,8 @@ fi
 echo "Aliasing '${scriptpath}/mkcc.sh' to mkcc"
 alias mkcc="${scriptpath}/mkcc.sh"
 
+# NEED TO WRITE ALIAS TO bashrc or zshrc TO KEEP ALIAS???
+
 if [[ $? -ne 0 ]]; then
     echo "Setup failed, exiting..." >&2
     return
