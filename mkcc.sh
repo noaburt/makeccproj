@@ -274,10 +274,10 @@ fi
 defaultmake="
 # This is the default makefile for coding challenges as set by mkcc ${VERSION}
 
-all: $shortname
+all: ${shortname}
 
 ${shortname}: main.c functions.c
-	gcc -o $shortname functions.c main.c -I. -Wall -pedantic
+	      gcc -o ${shortname} functions.c main.c -I. -Wall -pedantic
 "
 
 
@@ -363,9 +363,9 @@ function runtest {
 
     # Simple function to format tests; arg 1 is test arguments, arg 2 is expected result
 
-    printf \"\n ./${shortname} %-50s | expecting: %40s\n\" \"\$1\" \"\$2\"
-    printf \"I========================================================\"
-    printf \"=========================================================I\n\"
+    printf \"\n ./${shortname} %-70s | expecting: %40s\n\" \"\$1\" \"\$2\"
+    printf \"I==================================================================\"
+    printf \"===================================================================I\n\"
     printf \"\$(./${shortname} \$1)\n\"
 }
 
