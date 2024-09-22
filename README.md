@@ -7,30 +7,32 @@ A simple automation tool to create template projects for completting John Cricke
 
 To install ```mkcc``` run:
 
-```bash <(curl -sS https://raw.githubusercontent.com/noaburt/mkcc/main/install.sh)```
+    bash <(curl -sS https://raw.githubusercontent.com/noaburt/mkcc/main/install.sh)
+    
+## Setup
 
-Follow the instructions displayed after installation is complete:
+Add `alias mkcc=~/.mkcc/mkcc` to your `.bashrc` file (or .zshrc if you use zshell)
 
-```add 'alias mkcc=~/.mkcc/mkcc' to your .bashrc file (or .zshrc if you use zshell)```
+Reload shell with `source ~/.bashrc` (or `.zshrc`)
 
-```reload shell with 'source ~/.bashrc' (or .zshrc)```
+Run `mkcc -h / --help` for usage
 
-```run 'mkcc -h / --help' for usage```
+## Making a Project
 
-## Usage
+Note: This info, and more, is detailed by running
 
-This info is detailed by running:
-```
-$ mkcc -h / --help
-```
+    $ mkcc -h / --help
+
+### General Usage
 
 Run the CLI and answer the prompts to create a Coding Challenges project
-```
-$ mkcc [OPTIONS] [PROJECT]
 
-Create project '[PROJECT]'? [y/n]: y
-...
-```
+    $ mkcc [OPTIONS] [PROJECT]
+    
+    Create project '[PROJECT]'? [y/n]: y
+    ...
+
+### Upgrading
 
 To check for updates, run ```mkcc -u / --upgrade```
 
