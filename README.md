@@ -12,7 +12,9 @@ To install ```mkcc``` run:
 Follow the instructions displayed after installation is complete:
 
 ```add 'alias mkcc=~/.mkcc/mkcc' to your .bashrc file (or .zshrc if you use zshell)```
+
 ```reload shell with 'source ~/.bashrc' (or .zshrc)```
+
 ```run 'mkcc -h / --help' for usage```
 
 ## Usage
@@ -31,4 +33,5 @@ Create project '[PROJECT]'? [y/n]: y
 ```
 
 To check for updates, run ```mkcc -u / --upgrade```
+
 The version update will display and the tool will update automatically
