@@ -23,6 +23,11 @@ int main(int argc, char** argv) {
     return 0;
   }
 
+  if ( flags->upgrade ) {
+    // RUN INSTALL SCRIPT
+    // bash <(curl -sS https://raw.githubusercontent.com/noaburt/mkcc/main/install.sh)
+  }
+
   /* get user info for creating project */
 
   /* garbage collection */

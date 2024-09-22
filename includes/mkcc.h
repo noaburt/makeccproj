@@ -15,6 +15,7 @@ typedef struct FLAGSTRUCT {
 
   short int help;
   short int version;
+  short int upgrade;
   short int files;
 
   char* projectname;

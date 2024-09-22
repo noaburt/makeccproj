@@ -1,28 +1,19 @@
 
 # mkcc Tool
 
+A simple automation tool to create template projects for completting John Crickett's Coding Challenges
+
 ## Installation
 
-### Git
+To install ```mkcc``` run:
 
-Firstly install git, then clone this repo to the local machine
-```
-$ sudo [ apt install / apt-get / pacman -S / dnf install / ... ] git
-$ git clone git@github.com:noaburt/makeccproj.git
-```
+```bash <(curl -sS https://raw.githubusercontent.com/noaburt/mkcc/main/install.sh)```
 
-### Install script
+Follow the instructions displayed after installation is complete:
 
-Then make the script executable, and source the install script to finish the setup
-(you will need to enter root password to install to correct path)
-```
-$ cd makeccproj
-$ chmod +x ./install.sh
-$ source ./install.sh
-```
-The cloned repo can then be removed from machine
-
-The cloned repo can then be deleted
+```add 'alias mkcc=~/.mkcc/mkcc' to your .bashrc file (or .zshrc if you use zshell)```
+```reload shell with 'source ~/.bashrc' (or .zshrc)```
+```run 'mkcc -h / --help' for usage```
 
 ## Usage
 
@@ -39,12 +30,5 @@ Create project '[PROJECT]'? [y/n]: y
 ...
 ```
 
-## Updates
-
-When an update is released, clone repo again and re-source the install script
-```
-$ git clone git@github.com:noaburt/makeccproj.git
-$ cd makeccproj
-$ source ./install.sh
-```
-The cloned repo can then be removed from machine
+To check for updates, run ```mkcc -u / --upgrade```
+The version update will display and the tool will update automatically
