@@ -23,7 +23,10 @@ int main(int argc, char** argv) {
     return 0;
   }
 
-  
+  /* get user info for creating project */
+
+  /* garbage collection */
+  freeflags(flags);
 
   return 0;
 }

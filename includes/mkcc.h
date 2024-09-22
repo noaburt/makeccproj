@@ -21,6 +21,19 @@ typedef struct FLAGSTRUCT {
   
 } flagstruct;
 
+typedef struct PROJECTSTRUCT {
+
+  /* structure to store project data from user */
+
+  char* devname;
+  char* devdate;
+  
+  char* challengename;
+  char* shortname;
+  char* challengeurl;
+  
+} projectstruct;
+
 
 /* functions */
 
@@ -29,6 +42,7 @@ typedef struct FLAGSTRUCT {
  * @param error message to display
  */
 void issue(char* msg);
+
 
 /*
  * Parse arguments into flag structure
@@ -43,6 +57,32 @@ flagstruct* parseflags(int argc, char** argv);
  * @return empty flag structure
  */
 flagstruct* getemptyflags();
+
+/*
+ * Free space allocated by flag struct
+ * @param flag struct to deallocate (free)
+ */
+void freeflags(flagstruct* flags);
+
+
+/*
+ * Recieve user input for project creation
+ * @return full project structure
+ */
+projectstruct* getprojectdata();
+
+/*
+ * Allocate space for project info struct and initialise data
+ * @return empty project structure
+ */
+projectstruct* getemptyproject();
+
+/*
+ * Free space allocated by project struct
+ * @param project structure to deallocate (free)
+ */
+void freeproject(projectstruct* projectdata);
+  
 
 /*
  * @return formatted usage message to display when -h / --help flag present
