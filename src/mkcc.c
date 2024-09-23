@@ -24,13 +24,22 @@ int main(int argc, char** argv) {
   }
 
   if ( flags->upgrade ) {
-    // RUN INSTALL SCRIPT
-    // bash <(curl -sS https://raw.githubusercontent.com/noaburt/mkcc/main/install.sh)
+    /* execute install program from git */
+    return system("bash <(curl -sS https://raw.githubusercontent.com/noaburt/mkcc/main/install.sh)");
   }
 
-  /* get user info for creating project */
+  printf("COMMAND %s\n", flags->projectname);
+  return 0;
+
+  /* get user info for creating project and create */
+  projectstruct* newproject = getprojectdata();
+  makenewproject(newproject, flags);
+
+  /* show user project was created successfully */
+  printf("%s\n", getsuccess());
 
   /* garbage collection */
+  freeproject(newproject);
   freeflags(flags);
 
   return 0;

@@ -9,22 +9,26 @@
 
 /* structures */
 
-typedef struct FLAGSTRUCT {
+/*
+ * Structure to store flags selected by user
+ */
 
-  /* structure to store flags selected by user */
+typedef struct {
 
   short int help;
   short int version;
   short int upgrade;
+  short int test;
   short int files;
 
   char* projectname;
   
 } flagstruct;
 
-typedef struct PROJECTSTRUCT {
-
-  /* structure to store project data from user */
+/*
+ * Stucture to store project data from user
+ */
+typedef struct {
 
   char* devname;
   char* devdate;
@@ -83,7 +87,14 @@ projectstruct* getemptyproject();
  * @param project structure to deallocate (free)
  */
 void freeproject(projectstruct* projectdata);
-  
+
+
+/*
+ * Run functions to create project
+ * @param project data used to create project
+ * @param flags to decide to include files, test.sh, etc
+ */
+void makenewproject(projectstruct* projectdata, flagstruct* flags);
 
 /*
  * @return formatted usage message to display when -h / --help flag present
@@ -95,3 +106,7 @@ char* gethelp();
  */
 char* getversion();
 
+/*
+ * @return formatted success message to display when project has been completed
+ */
+char* getsuccess();
