@@ -12,7 +12,6 @@
 /*
  * Structure to store flags selected by user
  */
-
 typedef struct {
 
   short int help;
@@ -43,10 +42,11 @@ typedef struct {
 /* functions */
 
 /*
- * Produces errx message and suggests --help flag
- * @param error message to display
+ * Produces error or warning message and suggests --help flag
+ * @param exit on message display or not
+ * @param message to display
  */
-void issue(char* msg);
+void issue(short int toexit, char* msg);
 
 
 /*
@@ -72,9 +72,19 @@ void freeflags(flagstruct* flags);
 
 /*
  * Recieve user input for project creation
+ * @param project name selected by user
  * @return full project structure
  */
-projectstruct* getprojectdata();
+projectstruct* getprojectdata(char* projectname);
+
+/*
+ * Helper function to read user input and validate
+ * @param prompt shown to user to get input
+ * @param maximum size of buffer to read (used by fgets)
+ * @param if validation is required or not
+ * @return validated input
+ */
+char* readto(char* prompt, size_t maxbuffersize, short int required);
 
 /*
  * Allocate space for project info struct and initialise data

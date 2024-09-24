@@ -2,9 +2,11 @@
 #include <mkcc.h>
 
 
-void issue(char* msg) {
+void issue(short int toexit, char* msg) {
 
-  errx(1, "%s", msg);
+  if (toexit) { errx(1, "%s", msg); }
+
+  warnx("%s\n", msg);
 }
 
 flagstruct* parseflags(int argc, char** argv) {
@@ -28,7 +30,7 @@ flagstruct* parseflags(int argc, char** argv) {
       } else if ( strcmp( *(argv+currentindex), "-f" ) == 0 || strcmp( *(argv+currentindex), "--files" ) == 0 ) {
 	getflags->files = 1;
       } else {
-	errx(1, "unknown argument %s", *(argv+currentindex));
+	errx(1, "unknown argument %s", *(argv+currentindex) );
       }
       
     } else {
@@ -50,43 +52,82 @@ flagstruct* getemptyflags() {
   emptyflags->test = 0;
   emptyflags->files = 0;
 
-  emptyflags->projectname = (char*) '\0';
+  emptyflags->projectname = malloc( sizeof( char* ) );
 
   return emptyflags;
 }
 
 void freeflags(flagstruct* flags) {
 
-  if ( !flags ) { errx(1, "Flag structure null before intended"); }
+  if ( !flags ) { issue(1, "Flag structure null before intended"); }
 
   free(flags->projectname);
   free(flags);  
 }
 
 
-projectstruct* getprojectdata() {
+projectstruct* getprojectdata(char* projectname) {
 
   projectstruct* fullprojectdata = getemptyproject();
 
+  /* ask user questions and fill out project data */
+
+  printf("Preparing to create %s in current directory...\n", projectname);
+  printf("(type 'q' at any time to exit project creation)\n\n");
+  size_t maxbuffersize = 50; /* set buffer size required for fgets */
+
+  /* get name, date, challenge name, short name, and challenge url from user */
+  fullprojectdata->devname = readto("your name ", maxbuffersize, 1);
+  fullprojectdata->devdate = readto("the date of project creation", maxbuffersize, 1);
+  fullprojectdata->challengename = readto("the full name of the challenge (e.g. Build Your Own CLI)", maxbuffersize, 1);
+  fullprojectdata->shortname = readto("the shortened name of the challenge (used for calling from command line)", maxbuffersize, 1);
+
+  /* larger max read size for url as always longer than other fields */
+  fullprojectdata->challengeurl = readto("the full url of the challenge (or leave blank to include later)", 200, 0);
+
   return fullprojectdata;
+}
+
+char* readto(char* prompt, size_t maxbuffersize, short int required) {
+
+  if ( maxbuffersize < 8 ) { issue(1, "Maximum buffer to read is less than one character"); }
+
+  char* userinput = malloc( sizeof( char* ) );
+  
+  while (1) {
+    printf("Please enter %s: ", prompt);
+    fgets(userinput, maxbuffersize, stdin);
+
+    if ( strlen(userinput) == 1 && required ) {
+      issue(0, "This field is required, please enter a valid input");
+    } else {
+      if ( *userinput == 'q' ) { printf("Exiting project creation...\n"); exit(0); }
+      
+      break;
+    }
+  }
+
+  if ( !userinput ) { issue(1, "User input is null after validation"); }
+
+  return userinput;
 }
 
 projectstruct* getemptyproject() {
 
   projectstruct* emptyproject = malloc( sizeof( projectstruct* ) );
 
-  emptyproject->devname = (char*) '\0';
-  emptyproject->devdate = (char*) '\0';
-  emptyproject->challengename = (char*) '\0';
-  emptyproject->shortname = (char*) '\0';
-  emptyproject->challengeurl = (char*) '\0';
+  emptyproject->devname = malloc( sizeof( char* ) );
+  emptyproject->devdate = malloc( sizeof( char* ) );
+  emptyproject->challengename = malloc( sizeof( char* ) );
+  emptyproject->shortname = malloc( sizeof( char* ) );
+  emptyproject->challengeurl = malloc( sizeof( char* ) );
 
   return emptyproject;
 }
 
 void freeproject(projectstruct* projectdata) {
 
-  if ( !projectdata ) { errx(1, "Project structure null before intended"); }
+  if ( !projectdata ) { issue(1, "Project structure null before intended"); }
 
   free(projectdata->devname);
   free(projectdata->devdate);
@@ -100,7 +141,7 @@ void freeproject(projectstruct* projectdata) {
 
 void makenewproject(projectstruct* projectdata, flagstruct* flags) {
 
-  errx(1, "Not implemented yet");
+  issue(1, "Not implemented yet");
 }
 
 
@@ -122,7 +163,7 @@ char* getversion() {
 
   FILE* versionfile = fopen("~/.mkcc/VERSION", "r");
 
-  if ( !versionfile ) { errx(1, "Cannot read '~/.mkcc/VERSION': Try reinstalling the mkcc tool"); }
+  if ( !versionfile ) { issue(1, "Cannot read '~/.mkcc/VERSION': Try reinstalling the mkcc tool"); }
 
   char* versionnum = malloc( sizeof (char*) );
   char* vptr;
@@ -157,3 +198,5 @@ char* getsuccess() {
 
   return succmsg;
 }
+
+

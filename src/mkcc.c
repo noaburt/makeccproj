@@ -7,7 +7,7 @@ int main(int argc, char** argv) {
   /* main body of program to carry out logic */
 
   /* deal with base case errors */
-  if ( argc < 1 ) { issue("Missing operand"); }
+  if ( argc <= 1 ) { issue(1, "Missing operand"); }
 
   /* get version and flags */
   flagstruct* flags = parseflags(argc, argv);
@@ -28,11 +28,8 @@ int main(int argc, char** argv) {
     return system("bash <(curl -sS https://raw.githubusercontent.com/noaburt/mkcc/main/install.sh)");
   }
 
-  printf("COMMAND %s\n", flags->projectname);
-  return 0;
-
   /* get user info for creating project and create */
-  projectstruct* newproject = getprojectdata();
+  projectstruct* newproject = getprojectdata(flags->projectname);
   makenewproject(newproject, flags);
 
   /* show user project was created successfully */
